@@ -1,0 +1,74 @@
+{% extends "layout.html" %} {% block title %} Networth Calculator {% endblock %}
+{% block body %}
+<div class="header">
+  <h1>Networth</h1>
+</div>
+<div class="container">
+  <div class="section">
+    <h2>Add a Transacition</h2>
+    <form action="/entry" method="post">
+      <input
+        autocomplete="off"
+        autofocus
+        name="ammount"
+        placeholder="Ammount(Ex. 10.00 or -10.00)"
+        type="text"
+      />
+      <input
+        autocomplete="off"
+        name="location"
+        placeholder="Transaction Location"
+        type="text"
+      />
+      <input
+        autocomplete="off"
+        name="date"
+        placeholder="Date(mm/dd/yy)"
+        type="text"
+      />
+      <button type="submit">Actualize</button>
+    </form>
+  </div>
+
+  <div class="section">
+    <table>
+      <thead>
+        <tr>
+          <th>Networth</th>
+          <th>ALL Time Expenses</th>
+          <th>All Time Assets</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ networth | usd }}</td>
+          <td>{{ expenses | usd }}</td>
+          <td>{{ allTimeAssets | usd }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>Transaction History</h2>
+    <table>
+      <tdead>
+        <tr>
+          <td>AMOUNT</td>
+          <td>LOCATION</td>
+          <td>DATE</td>
+        </tr>
+      </tdead>
+      <tbody>
+        {% for row in transactions %}
+        <tr>
+          <td>{{ row["Amount"] | usd }}</td>
+          <td>{{ row["Location"] }}</td>
+          <td>{{ row["Date"] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
